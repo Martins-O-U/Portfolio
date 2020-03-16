@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import selfPix from "./images/pic00.jpg";
+import selfPix from "./images/blinx-2.jpg";
 import Footer from "./FooterNav";
 
 const AboutMe = () => {

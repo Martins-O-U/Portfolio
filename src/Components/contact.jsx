@@ -1,30 +1,61 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components";
+import axios from "axios";
 import Socials from "./Socials";
 
-function contact() {
+function Contact(props) {
+  const initial = {
+    name: '',
+    email: '',
+    number: '',
+    comment: ''
+  }
+
+  const [message, setMessage] = useState(initial)
+
+  const handleChange = (e) => {
+    e.persist();
+    setMessage({
+      ...message,
+      [e.target.name]: e.target.value
+    })
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post('https://portfolio-martins.herokuapp.com/api/comments', message)
+      .then(res => {
+        // props.history.push('/')
+        console.log(res)
+      })
+      .catch(error => {
+        console.log(error)
+
+      })
+  };
+
   return (
     <StyledDiv>
       <div className=" form-container animated animatedFadeInUp fadeInUp">
         <p>Reach me through the following mediums</p>
         <Socials />
-        <form action="mailto:martinsonyedikachi@gmail.com" method="post" enctype="text/plain">
+        {/* <form action="mailto:martinsonyedikachi@gmail.com" method="post" enctype="text/plain"> */}
+        <form onSubmit={handleSubmit}>
           <div>
-            <input name="Full Name" type="text" placeholder="Full Name" required />
+            <input name="name" type="text" placeholder="Full Name" onChange={handleChange} value={message.name} required />
           </div>
           <div>
-            <input name="Email" placeholder="Email" required />
+            <input name="email" placeholder="Email" onChange={handleChange} value={message.email} />
           </div>
           <div>
-            <input name="number" type="number" placeholder="Phone Number" />
+            <input name="number" type="number" placeholder="Phone Number" onChange={handleChange} value={message.number} />
           </div>
           <div>
-            <textarea name="comments" maxLength="500" placeholder="Enter Additional information here..." required />
+            <textarea name="comment" maxLength="500" placeholder="Enter Additional information here..." onChange={handleChange} value={message.comment} required />
           </div>
           <div className="btn-field">
-            <a rel="noopener noreferrer" target="_blank" href="mailto:martinsonyedikachi@gmail.com">
-              <button type="submit" className="submit hvr-radial-out">Submit</button>
-            </a>
+            <button type="submit" className="submit hvr-radial-out">Submit</button>
           </div>
         </form>
       </div>
@@ -32,7 +63,7 @@ function contact() {
   )
 }
 
-export default contact;
+export default Contact;
 
 const StyledDiv = styled.div`
 text-align: center;
@@ -88,6 +119,15 @@ p{
     text-align: center;
     box-shadow: 0 -1px 0 #e0e0e0, 0 7px 10px rgba(0, 0, 0, 0.12),
     0 2px 4px rgba(0, 0, 0, 0.24);
+
+    @media only screen and (max-width: 750px){
+        margin-left: 5%;
+        margin-right: 5%; 
+    }
+    @media only screen and (max-width: 550px){
+        padding-right: 10px;
+        padding-left: 10px;
+    }
   }
   form{
       margin-top: 30px;
@@ -159,33 +199,5 @@ p{
   .hvr-radial-out:active:before {
     -webkit-transform: scale(2);
     transform: scale(2);
-  }
-
-  @media only screen and (max-width: 850px){
-    .form-container{
-      margin-top: 10%;
-    }
-  }
-  @media only screen and (max-width: 700px){
-    .form-container{
-      margin-top: 13%;
-      margin-left: 10%;
-      margin-right: 10%;
-    }
-  }
-  @media only screen and (max-width: 550px){
-    .form-container{
-      margin-top: 15.5%;
-      padding-right: 10px;
-      padding-left: 10px;
-    }
-
-      input{
-        width: 80%;
-      }
-
-      textarea{
-        width: 80%
-      }
   }
 `;
