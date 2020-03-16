@@ -24,11 +24,13 @@ function Contact(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('https://portfolio-martins.herokuapp.com/api/comments', message)
+      .post('https://portfolio-martins.herokuapp.com/api/comments/', message)
       .then(res => {
         props.history.push('/thanks')
+        console.log(res.data)
       })
       .catch(error => {
+        console.log(error.message)
       })
   };
 
