@@ -4,14 +4,14 @@ import axios from "axios";
 import Socials from "./Socials";
 
 function Contact(props) {
-  const initial = {
+  const contact_information = {
     name: '',
     email: '',
     number: '',
     comment: ''
   }
 
-  const [message, setMessage] = useState(initial)
+  const [message, setMessage] = useState(contact_information)
 
   const handleChange = (e) => {
     e.persist();
@@ -27,10 +27,8 @@ function Contact(props) {
       .post('https://portfolio-martins.herokuapp.com/api/comments', message)
       .then(res => {
         props.history.push('/thanks')
-        console.log(res)
       })
       .catch(error => {
-        console.log(error)
       })
   };
 
