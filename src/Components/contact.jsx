@@ -26,33 +26,32 @@ function Contact(props) {
     axios
       .post('https://portfolio-martins.herokuapp.com/api/comments', message)
       .then(res => {
-        // props.history.push('/')
+        props.history.push('/thanks')
         console.log(res)
       })
       .catch(error => {
         console.log(error)
-
       })
   };
 
   return (
     <StyledDiv>
       <div className=" form-container animated animatedFadeInUp fadeInUp">
-        <p>Reach me through the following mediums</p>
+        <h3 className="p-one">I'd Be Delighted To Receive A Message From You.</h3>
+        <p className="p-two">Please reach out to me through any of the following:</p>
         <Socials />
-        {/* <form action="mailto:martinsonyedikachi@gmail.com" method="post" enctype="text/plain"> */}
         <form onSubmit={handleSubmit}>
           <div>
-            <input name="name" type="text" placeholder="Full Name" onChange={handleChange} value={message.name} required />
+            <input name="name" type="text" placeholder="Hello, What is your name?" onChange={handleChange} value={message.name} required />
           </div>
           <div>
-            <input name="email" placeholder="Email" onChange={handleChange} value={message.email} />
+            <input name="email" placeholder="Your Email" onChange={handleChange} value={message.email} required />
           </div>
           <div>
-            <input name="number" type="number" placeholder="Phone Number" onChange={handleChange} value={message.number} />
+            <input name="number" type="number" placeholder="Your Phone Number" onChange={handleChange} value={message.number} />
           </div>
           <div>
-            <textarea name="comment" maxLength="500" placeholder="Enter Additional information here..." onChange={handleChange} value={message.comment} required />
+            <textarea name="comment" maxLength="500" placeholder="Please type your message here..." onChange={handleChange} value={message.comment} required />
           </div>
           <div className="btn-field">
             <button type="submit" className="submit hvr-radial-out">Submit</button>
@@ -67,9 +66,15 @@ export default Contact;
 
 const StyledDiv = styled.div`
 text-align: center;
-p{
-    padding-top: 5%;
+.p-one{
+  padding-top: 3%;
+  margin-bottom: 5px
+
+}
+.p-two{
     margin-bottom: 30px;
+    margin-top: 2px
+
 }
 @keyframes fadeInUp {
     from {
